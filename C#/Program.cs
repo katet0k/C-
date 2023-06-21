@@ -413,13 +413,61 @@ namespace C_
                         break;
                     case 12:
                         {
-                            Console.Write("\nНатисніть Enter, щоб продовжити...");
-                            Console.ReadLine();
-                            Console.Clear();
+                            Console.WriteLine("Введіть число A:");
+                            int A = Convert.ToInt32(Console.ReadLine());
+
+                            Console.WriteLine("Введіть число B (B повинно бути більшим за A):");
+                            int B = Convert.ToInt32(Console.ReadLine());
+
+                            if (A >= B)
+                            {
+                                Console.WriteLine("Помилка: B повинно бути більшим за A.");
+                                return;
+                            }
+
+                            for (int i = A; i <= B; i++)
+                            {
+                                for (int j = 0; j < i; j++)
+                                {
+                                    Console.Write($"{i} ");
+                                }
+                                Console.WriteLine();
+                            }
+                                Console.Write("\nНатисніть Enter, щоб продовжити...");
+                                Console.ReadLine();
+                                Console.Clear();
+                            
                         }
                         break;
                     case 13:
                         {
+                            Console.WriteLine("Введіть довжину лінії:");
+                            int length = Convert.ToInt32(Console.ReadLine());
+
+                            Console.WriteLine("Введіть символ заповнювач:");
+                            char fillSymbol = Convert.ToChar(Console.ReadLine());
+
+                            Console.WriteLine("Введіть напрямок лінії (горизонтальна - H, вертикальна - V):");
+                            char direction = Convert.ToChar(Console.ReadLine());
+
+                            if (direction == 'H')
+                            {
+                                for (int i = 0; i < length; i++)
+                                {
+                                    Console.Write(fillSymbol);
+                                }
+                            }
+                            else if (direction == 'V')
+                            {
+                                for (int i = 0; i < length; i++)
+                                {
+                                    Console.WriteLine(fillSymbol);
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Помилка: неправильний напрямок лінії.");
+                            }
                             Console.Write("\nНатисніть Enter, щоб продовжити...");
                             Console.ReadLine();
                             Console.Clear();
