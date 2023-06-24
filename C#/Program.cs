@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Text;
+using System;
 
 namespace C_
 {
@@ -29,6 +30,9 @@ namespace C_
                 Console.WriteLine(" |      11 -  case 11      |");
                 Console.WriteLine(" |      12 -  case 12      |");
                 Console.WriteLine(" |      13 -  case 13      |");
+                Console.WriteLine(" |      14 -  case 14      |");
+                Console.WriteLine(" |      15 -  case 15      |");
+                Console.WriteLine(" |      16 -  case 16      |");
                 Console.WriteLine(" |       0 -   exit        |");
                 Console.WriteLine("#===========================#");
                 Console.Write("Виберіть пункт меню -> ");
@@ -279,27 +283,82 @@ namespace C_
                             Console.Write("\nНатисніть Enter, щоб продовжити...");
                             Console.ReadLine();
                             Console.Clear();
-                        
-                        } break;
+
+                        }
+                        break;
 
                     case 4:
                         {
-                            int[,] matrix1 = { { 1, 2, 3 }, { 4, 5, 6 } };
-                            int[,] matrix2 = { { 7, 8, 9 }, { 10, 11, 12 } };
+                            Matrix();
+                            Console.WriteLine("1 - Множення матриці на число");
+                            Console.WriteLine("2 - Додавання матриць");
+                            Console.WriteLine("3 - Добуток матриць");
+                            Console.WriteLine("0 - Вихід");
+                            Console.Write("--> ");
+                            int choice = int.Parse(Console.ReadLine());
 
-                            int[,] result1 = MultiplyByScalar(matrix1, 2);
-                            int[,] result2 = AddMatrices(matrix1, matrix2);
-                            int[,] result3 = MultiplyMatrices(matrix1, matrix2);
+                            switch (choice)
+                            {
+                                case 1:
+                                    MultiplyByScalarOption();
+                                    break;
+                                case 2:
+                                    AddMatricesOption();
+                                    break;
+                                case 3:
+                                    MultiplyMatricesOption();
+                                    break;
+                                case 0:
+                                    Environment.Exit(0);
+                                    break;
+                                default:
+                                    Console.WriteLine("Невірний вибір");
+                                    break;
+                            }
 
-                            Console.WriteLine("Множення матриці на число:");
-                            PrintMatrix(result1);
+                            Console.Write("\nНатисніть будь-яку клавішу, щоб продовжити...");
+                            Console.ReadKey();
+                            Console.Clear();
 
-                            Console.WriteLine("Додавання матриць:");
-                            PrintMatrix(result2);
 
-                            Console.WriteLine("Добуток матриць:");
-                            PrintMatrix(result3);
+                            static void Matrix()
+                            {
+                                int[,] matrix1 = { { 1, 2, 3 }, { 4, 5, 6 } };
+                                PrintMatrix(matrix1);
 
+                            }
+                            static void MultiplyByScalarOption()
+                            {
+                                int[,] matrix1 = { { 1, 2, 3 }, { 4, 5, 6 } };
+                                int scalar = 2;
+
+                                int[,] result = MultiplyByScalar(matrix1, scalar);
+
+                                Console.WriteLine("Множення матриці на число:");
+                                PrintMatrix(result);
+                            }
+
+                            static void AddMatricesOption()
+                            {
+                                int[,] matrix1 = { { 1, 2, 3 }, { 4, 5, 6 } };
+                                int[,] matrix2 = { { 7, 8, 9 }, { 10, 11, 12 } };
+
+                                int[,] result = AddMatrices(matrix1, matrix2);
+
+                                Console.WriteLine("Додавання матриць:");
+                                PrintMatrix(result);
+                            }
+
+                            static void MultiplyMatricesOption()
+                            {
+                                int[,] matrix1 = { { 1, 2, 3 }, { 4, 5, 6 } };
+                                int[,] matrix2 = { { 7, 8, 9 }, { 10, 11, 12 } };
+
+                                int[,] result = MultiplyMatrices(matrix1, matrix2);
+
+                                Console.WriteLine("Добуток матриць:");
+                                PrintMatrix(result);
+                            }
 
                             static int[,] MultiplyByScalar(int[,] matrix, int scalar)
                             {
@@ -379,9 +438,6 @@ namespace C_
                                     Console.WriteLine();
                                 }
                             }
-                            Console.Write("\nНатисніть Enter, щоб продовжити...");
-                            Console.ReadLine();
-                            Console.Clear();
                         }
                         break;
                     case 5:
@@ -392,9 +448,9 @@ namespace C_
 
                             int result = CalculateExpression(expression);
                             Console.WriteLine("Результат: " + result);
-                        
 
-                        static int CalculateExpression(string expression)
+
+                            static int CalculateExpression(string expression)
                             {
                                 int result = 0;
                                 int sign = 1;
@@ -428,7 +484,7 @@ namespace C_
                                 return result;
                             }
 
-                        Console.Write("\nНатисніть Enter, щоб продовжити...");
+                            Console.Write("\nНатисніть Enter, щоб продовжити...");
                             Console.ReadLine();
                             Console.Clear();
                         }
@@ -441,32 +497,35 @@ namespace C_
 
                             string result = ChangeSentenceCase(text);
                             Console.WriteLine("Результат: " + result);
-                        
 
-                        static string ChangeSentenceCase(string text)
-                        {
-                            string[] sentences = text.Split('.', StringSplitOptions.RemoveEmptyEntries);
 
-                            for (int i = 0; i < sentences.Length; i++)
+                            static string ChangeSentenceCase(string text)
                             {
-                                if (!string.IsNullOrWhiteSpace(sentences[i]))
+                                string[] sentences = text.Split('.', StringSplitOptions.RemoveEmptyEntries);
+
+                                for (int i = 0; i < sentences.Length; i++)
                                 {
-                                    char[] sentenceChars = sentences[i].ToCharArray();
-
-                                    if (char.IsLetter(sentenceChars[0]))
+                                    if (!string.IsNullOrWhiteSpace(sentences[i]))
                                     {
-                                        sentenceChars[0] = char.ToUpper(sentenceChars[0]);
+                                        char[] sentenceChars = sentences[i].ToCharArray();
+
+                                        if (char.IsLetter(sentenceChars[0]))
+                                        {
+                                            sentenceChars[0] = char.ToUpper(sentenceChars[0]);
+                                        }
+
+                                        sentences[i] = new string(sentenceChars);
                                     }
-
-                                    sentences[i] = new string(sentenceChars);
                                 }
-                            }
 
-                            string result = string.Join(". ", sentences);
-                            return result;
+                                string result = string.Join(". ", sentences);
+                                return result;
+                            }
+                            Console.Write("\nНатисніть Enter, щоб продовжити...");
+                            Console.ReadLine();
+                            Console.Clear();
                         }
-                }
-                break;
+                        break;
                     case 7:
                         {
                             Console.WriteLine("Введіть текст:");
@@ -480,25 +539,28 @@ namespace C_
                             Console.WriteLine("Результат:");
                             Console.WriteLine(result);
                             Console.WriteLine("Статистика: " + replaceCount + " заміни слова");
-                        
 
-                        static string CensorText(string text, string[] invalidWords, out int replaceCount)
-                        {
-                            List<string> words = new List<string>(text.Split(' '));
-                            replaceCount = 0;
 
-                            for (int i = 0; i < words.Count; i++)
+                            static string CensorText(string text, string[] invalidWords, out int replaceCount)
                             {
-                                if (invalidWords.Contains(words[i].ToLower()))
-                                {
-                                    words[i] = new string('*', words[i].Length);
-                                    replaceCount++;
-                                }
-                            }
+                                List<string> words = new List<string>(text.Split(' '));
+                                replaceCount = 0;
 
-                            return string.Join(' ', words);
+                                for (int i = 0; i < words.Count; i++)
+                                {
+                                    if (invalidWords.Contains(words[i].ToLower()))
+                                    {
+                                        words[i] = new string('*', words[i].Length);
+                                        replaceCount++;
+                                    }
+                                }
+
+                                return string.Join(' ', words);
+                            }
+                            Console.Write("\nНатисніть Enter, щоб продовжити...");
+                            Console.ReadLine();
+                            Console.Clear();
                         }
-                }
                         break;
                     case 8:
                         {
@@ -513,25 +575,28 @@ namespace C_
                             Console.WriteLine("Кількість парних елементів: " + evenCount);
                             Console.WriteLine("Кількість непарних елементів: " + oddCount);
                             Console.WriteLine("Кількість унікальних елементів: " + uniqueCount);
-                        
 
-                        static int CountEvenNumbers(int[] array)
-                        {
-                            return array.Count(x => x % 2 == 0);
-                        }
 
-                        static int CountOddNumbers(int[] array)
-                        {
-                            return array.Count(x => x % 2 != 0);
-                        }
+                            static int CountEvenNumbers(int[] array)
+                            {
+                                return array.Count(x => x % 2 == 0);
+                            }
 
-                        static int CountUniqueNumbers(int[] array)
-                        {
-                            HashSet<int> uniqueNumbers = new HashSet<int>(array);
-                            return uniqueNumbers.Count;
+                            static int CountOddNumbers(int[] array)
+                            {
+                                return array.Count(x => x % 2 != 0);
+                            }
+
+                            static int CountUniqueNumbers(int[] array)
+                            {
+                                HashSet<int> uniqueNumbers = new HashSet<int>(array);
+                                return uniqueNumbers.Count;
+                            }
+                            Console.Write("\nНатисніть Enter, щоб продовжити...");
+                            Console.ReadLine();
+                            Console.Clear();
                         }
-                }
-                break;
+                        break;
                     case 9:
                         {
                             Console.WriteLine("Введіть елементи масиву (розділені комою):");
@@ -543,22 +608,25 @@ namespace C_
 
                             int count = CountValuesLessThanThreshold(array, threshold);
                             Console.WriteLine("Кількість значень менших, ніж " + threshold + ": " + count);
-                        
 
-                        static int CountValuesLessThanThreshold(int[] array, int threshold)
-                        {
-                            int count = 0;
-                            for (int i = 0; i < array.Length; i++)
+
+                            static int CountValuesLessThanThreshold(int[] array, int threshold)
                             {
-                                if (array[i] < threshold)
+                                int count = 0;
+                                for (int i = 0; i < array.Length; i++)
                                 {
-                                    count++;
+                                    if (array[i] < threshold)
+                                    {
+                                        count++;
+                                    }
                                 }
+                                return count;
                             }
-                            return count;
+                            Console.Write("\nНатисніть Enter, щоб продовжити...");
+                            Console.ReadLine();
+                            Console.Clear();
                         }
-                }
-                break;
+                        break;
                     case 10:
                         {
                             Console.WriteLine("Введіть три числа (розділені пробілом):");
@@ -571,32 +639,35 @@ namespace C_
 
                             int count = CountSequenceOccurrences(array, numbers);
                             Console.WriteLine("Кількість повторень послідовності: " + count);
-                        
 
-                        static int CountSequenceOccurrences(int[] array, int[] sequence)
-                        {
-                            int count = 0;
-                            for (int i = 0; i <= array.Length - sequence.Length; i++)
+
+                            static int CountSequenceOccurrences(int[] array, int[] sequence)
                             {
-                                bool isMatch = true;
-                                for (int j = 0; j < sequence.Length; j++)
+                                int count = 0;
+                                for (int i = 0; i <= array.Length - sequence.Length; i++)
                                 {
-                                    if (array[i + j] != sequence[j])
+                                    bool isMatch = true;
+                                    for (int j = 0; j < sequence.Length; j++)
                                     {
-                                        isMatch = false;
-                                        break;
+                                        if (array[i + j] != sequence[j])
+                                        {
+                                            isMatch = false;
+                                            break;
+                                        }
+                                    }
+                                    if (isMatch)
+                                    {
+                                        count++;
                                     }
                                 }
-                                if (isMatch)
-                                {
-                                    count++;
-                                }
+                                return count;
                             }
-                            return count;
-                        }
+                            Console.Write("\nНатисніть Enter, щоб продовжити...");
+                            Console.ReadLine();
+                            Console.Clear();
 
-                }
-                break;
+                        }
+                        break;
                     case 11:
                         {
                             Console.WriteLine("Введіть елементи першого масиву (розділені пробілом):");
@@ -614,17 +685,22 @@ namespace C_
                             {
                                 Console.Write(element + " ");
                             }
-                        
 
-                        static int[] GetCommonElements(int[] array1, int[] array2)
-                        {
-                            int[] commonElements = array1.Intersect(array2).ToArray();
-                            return commonElements;
+
+                            static int[] GetCommonElements(int[] array1, int[] array2)
+                            {
+                                int[] commonElements = array1.Intersect(array2).ToArray();
+                                return commonElements;
+                            }
+
+                            Console.Write("\nНатисніть Enter, щоб продовжити...");
+                            Console.ReadLine();
+                            Console.Clear();
                         }
-                }
-                break;
+                        break;
                     case 12:
                         {
+
                             Console.WriteLine("Введіть розмірність рядків масиву:");
                             int rows = int.Parse(Console.ReadLine());
 
@@ -639,6 +715,7 @@ namespace C_
                             {
                                 for (int j = 0; j < columns; j++)
                                 {
+                                    Console.Write("-> ");
                                     array[i, j] = int.Parse(Console.ReadLine());
                                 }
                             }
@@ -648,39 +725,49 @@ namespace C_
 
                             Console.WriteLine("Мінімальне значення: " + min);
                             Console.WriteLine("Максимальне значення: " + max);
+
+                            Console.Write("\nНатисніть будь-яку клавішу, щоб продовжити...");
+                            Console.ReadKey();
+                            Console.Clear();
+
+
+                            static int FindMinimum(int[,] array)
+                            {
+                                int min = array[0, 0];
+
+                                foreach (int element in array)
+                                {
+                                    if (element < min)
+                                    {
+                                        min = element;
+                                    }
+                                }
+
+                                return min;
+                            }
+
+                            static int FindMaximum(int[,] array)
+                            {
+                                int max = array[0, 0];
+
+                                foreach (int element in array)
+                                {
+                                    if (element > max)
+                                    {
+                                        max = element;
+                                    }
+                                }
+
+                                return max;
+                            }
                         
+                
 
-                        static int FindMinimum(int[,] array)
-                        {
-                            int min = array[0, 0];
+                            Console.Write("\nНатисніть Enter, щоб продовжити...");
+                            Console.ReadLine();
+                            Console.Clear();
 
-                            foreach (int element in array)
-                            {
-                                if (element < min)
-                                {
-                                    min = element;
-                                }
-                            }
-
-                            return min;
                         }
-
-                        static int FindMaximum(int[,] array)
-                        {
-                            int max = array[0, 0];
-
-                            foreach (int element in array)
-                            {
-                                if (element > max)
-                                {
-                                    max = element;
-                                }
-                            }
-
-                            return max;
-                        }
-
-                }
                 break;
                     case 13:
                         {
@@ -697,7 +784,11 @@ namespace C_
                             string[] words = sentence.Split(new char[] { ' ', '\t', '\n' }, StringSplitOptions.RemoveEmptyEntries);
                             return words.Length;
                         }
-                }
+
+                            Console.Write("\nНатисніть Enter, щоб продовжити...");
+                            Console.ReadLine();
+                            Console.Clear();
+                        }
                 break;
                     case 14:
                         {
@@ -722,7 +813,11 @@ namespace C_
 
                             return string.Join(" ", words);
                         }
-                }
+
+                            Console.Write("\nНатисніть Enter, щоб продовжити...");
+                            Console.ReadLine();
+                            Console.Clear();
+                        }
                 break;
                     case 15:
                         {
@@ -750,7 +845,11 @@ namespace C_
 
                             return count;
                         }
-                }
+
+                            Console.Write("\nНатисніть Enter, щоб продовжити...");
+                            Console.ReadLine();
+                            Console.Clear();
+                        }
                 break;
                     case 16:
                         {
@@ -777,15 +876,16 @@ namespace C_
 
                             return count;
                         }
-                }
+
+                            Console.Write("\nНатисніть Enter, щоб продовжити...");
+                            Console.ReadLine();
+                            Console.Clear();
+                        }
                 break;
 
                     default:
                         break;
                 }
-                Console.Write("\nНатисніть Enter, щоб продовжити...");
-                Console.ReadLine();
-                Console.Clear();
             } while (switch_on != 0);
         }
     }
