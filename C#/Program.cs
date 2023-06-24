@@ -361,17 +361,32 @@ namespace C_
                         break;
                     case 10:
                         {
-                            int[] arr = { 1,2,3,4,5,6,7,8 };
-                            int max = arr.Max();
-                            int b = max;
+                            Console.WriteLine("Введіть шестизначне число:");
+                            int number = int.Parse(Console.ReadLine());
 
-                            for (int i = 0; i < max + 1; i++)
+                            int reversedNumber = ReverseNumber(number);
+
+                            Console.WriteLine("Результат: " + reversedNumber);
+
+                            Console.Write("\nНатисніть будь-яку клавішу, щоб продовжити...");
+                            Console.ReadKey();
+                            Console.Clear();
+
+
+                            static int ReverseNumber(int number)
                             {
-                               
-                                arr[i] = b;
-                                Console.WriteLine(arr[i]);
-                                b--;
+                                int reversedNumber = 0;
+
+                                while (number > 0)
+                                {
+                                    int digit = number % 10;
+                                    reversedNumber = reversedNumber * 10 + digit;
+                                    number /= 10;
+                                }
+
+                                return reversedNumber;
                             }
+
                             Console.Write("\nНатисніть Enter, щоб продовжити...");
                             Console.ReadLine();
                             Console.Clear();
