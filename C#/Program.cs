@@ -432,6 +432,129 @@ class Employee
     }
 }
 
+
+class Aircraft
+{
+    private string name;
+    private string manufacturer;
+    private int year;
+    private string type;
+
+    public string Name
+    {
+        get { return name; }
+        set { name = value; }
+    }
+
+    public string Manufacturer
+    {
+        get { return manufacturer; }
+        set { manufacturer = value; }
+    }
+
+    public int Year
+    {
+        get { return year; }
+        set { year = value; }
+    }
+
+    public string Type
+    {
+        get { return type; }
+        set { type = value; }
+    }
+
+    public Aircraft(string name, string manufacturer, int year, string type)
+    {
+        this.name = name;
+        this.manufacturer = manufacturer;
+        this.year = year;
+        this.type = type;
+    }
+
+    public void DisplayInfo()
+    {
+        Console.WriteLine("Aircraft Information:");
+        Console.WriteLine("Name: " + name);
+        Console.WriteLine("Manufacturer: " + manufacturer);
+        Console.WriteLine("Year: " + year);
+        Console.WriteLine("Type: " + type);
+    }
+}
+
+class Matrix
+{
+    private int[,] data;
+    private int rows;
+    private int columns;
+
+    public Matrix(int rows, int columns)
+    {
+        this.rows = rows;
+        this.columns = columns;
+        data = new int[rows, columns];
+    }
+
+    public void SetData()
+    {
+        Console.WriteLine("Enter matrix elements:");
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                Console.Write("Element[{0},{1}]: ", i, j);
+                data[i, j] = int.Parse(Console.ReadLine());
+            }
+        }
+    }
+
+    public void DisplayData()
+    {
+        Console.WriteLine("Matrix:");
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                Console.Write(data[i, j] + "\t");
+            }
+            Console.WriteLine();
+        }
+    }
+
+    public int FindMax()
+    {
+        int max = data[0, 0];
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                if (data[i, j] > max)
+                {
+                    max = data[i, j];
+                }
+            }
+        }
+        return max;
+    }
+
+    public int FindMin()
+    {
+        int min = data[0, 0];
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                if (data[i, j] < min)
+                {
+                    min = data[i, j];
+                }
+            }
+        }
+        return min;
+    }
+}
+
+
 namespace C_
 {
     internal class Program
@@ -528,7 +651,7 @@ namespace C_
 
                         }
 
-                break;
+                        break;
                     case 3:
                         {
 
@@ -557,7 +680,7 @@ namespace C_
                                 return originalArray.Where(x => !filterArray.Contains(x)).ToArray();
                             }
                         }
-                break;
+                        break;
                     case 4:
                         {
                             Website website = new Website();
@@ -798,7 +921,45 @@ namespace C_
                             Console.ReadKey();
                         }
                         break;
+                    case 12:
+                        {
+                            Aircraft aircraft = new Aircraft("Boeing 747", "Boeing", 1969, "Passenger");
 
+                            aircraft.DisplayInfo();
+
+                            aircraft.Name = "Airbus A380";
+                            aircraft.Year = 2005;
+
+                            aircraft.DisplayInfo(); 
+                            Console.Write("\nНатисніть будь-яку клавішу, щоб продовжити...");
+                            Console.ReadKey();
+                        }
+                        break;
+
+                    case 13:
+                        {
+                            Console.Write("Введіть кількість рядків:");
+                            int rows = int.Parse(Console.ReadLine());
+
+                            Console.Write("Введіть кількість колонок: ");
+                            int columns = int.Parse(Console.ReadLine());
+
+                            Matrix matrix = new Matrix(rows, columns);
+
+                            matrix.SetData();
+                            matrix.DisplayData();
+
+                            int max = matrix.FindMax();
+                            int min = matrix.FindMin();
+
+                            Console.WriteLine("Максимальний елемент: " + max);
+                            Console.WriteLine("Мінімальний елемент: " + min);
+
+                            Console.Write("\nНатисніть будь-яку клавішу, щоб продовжити...");
+                            Console.ReadKey();
+
+                        }
+                        break;
                     default:
                         break;
                 }
