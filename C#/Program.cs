@@ -194,8 +194,8 @@ namespace C_
                                 Console.WriteLine("Некоректний формат дати.");
                             }
 
-                            Console.ReadLine();
-                        }
+                            
+                        
 
                         static string GetSeason(DateTime date)
                         {
@@ -218,6 +218,7 @@ namespace C_
                                 return "Winter";
                             }
 
+                        }
                             Console.Write("\nНатисніть Enter, щоб продовжити...");
                             Console.ReadLine();
                             Console.Clear();
