@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace C_ {
+namespace C_
+{
     public enum Player
     {
         None,
@@ -38,9 +39,9 @@ namespace C_ {
             DrawBoard();
             Player winner = GetWinner();
             if (winner != Player.None)
-                Console.WriteLine("Player {0} wins!", winner);
+                Console.WriteLine("Гравець {0} виграв!", winner);
             else
-                Console.WriteLine("It's a draw!");
+                Console.WriteLine("Це нічия!");
         }
 
         private void DrawBoard()
@@ -62,15 +63,15 @@ namespace C_ {
 
         private void MakeMove()
         {
-            Console.WriteLine("Player {0}'s turn.", currentPlayer);
-            Console.Write("Enter row number (1-3): ");
+            Console.WriteLine("Хід гравця {0}.", currentPlayer);
+            Console.Write("Введіть номер рядка (1-3): ");
             int row = int.Parse(Console.ReadLine()) - 1;
-            Console.Write("Enter column number (1-3): ");
+            Console.Write("Введіть номер стовпця (1-3): ");
             int col = int.Parse(Console.ReadLine()) - 1;
 
             if (board[row, col] != Player.None)
             {
-                Console.WriteLine("Invalid move. Try again.");
+                Console.WriteLine("Недійсний хід. Спробуйте знову.");
                 MakeMove();
             }
             else
@@ -128,9 +129,9 @@ namespace C_ {
         }
     }
 
-    public static class MorseCode
+    public static class MorseCodeTranslator
     {
-        private static readonly Dictionary<char, string> codeDictionary = new Dictionary<char, string>()
+        private static readonly Dictionary<char, string> morseCodeDictionary = new Dictionary<char, string>()
         {
             {'A', ".-"}, {'B', "-..."}, {'C', "-.-."}, {'D', "-.."}, {'E', "."},
             {'F', "..-."}, {'G', "--."}, {'H', "...."}, {'I', ".."}, {'J', ".---"},
@@ -142,6 +143,16 @@ namespace C_ {
             {'9', "----."}, {' ', "/"}
         };
 
+        private static readonly Dictionary<string, char> reverseMorseCodeDictionary = new Dictionary<string, char>();
+
+        static MorseCodeTranslator()
+        {
+            foreach (var pair in morseCodeDictionary)
+            {
+                reverseMorseCodeDictionary.Add(pair.Value, pair.Key);
+            }
+        }
+
         public static string TranslateToMorseCode(string text)
         {
             text = text.ToUpper();
@@ -149,9 +160,9 @@ namespace C_ {
 
             foreach (char c in text)
             {
-                if (codeDictionary.ContainsKey(c))
+                if (morseCodeDictionary.ContainsKey(c))
                 {
-                    morseCode += codeDictionary[c] + " ";
+                    morseCode += morseCodeDictionary[c] + " ";
                 }
                 else
                 {
@@ -161,8 +172,213 @@ namespace C_ {
 
             return morseCode;
         }
+
+        public static string TranslateFromMorseCode(string morseCode)
+        {
+            string[] words = morseCode.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string translatedText = "";
+
+            foreach (string word in words)
+            {
+                if (reverseMorseCodeDictionary.ContainsKey(word))
+                {
+                    translatedText += reverseMorseCodeDictionary[word];
+                }
+                else
+                {
+                    translatedText += " ";
+                }
+            }
+
+            return translatedText;
+        }
     }
 
+    namespace EvenNumbers
+    {
+        public class EvenNumberGenerator
+        {
+            private int currentNumber = 0;
+
+            public int GetNext()
+            {
+                int evenNumber = currentNumber;
+                currentNumber += 2;
+                return evenNumber;
+            }
+        }
+    }
+
+    namespace OddNumbers
+    {
+        public class OddNumberGenerator
+        {
+            private int currentNumber = 1;
+
+            public int GetNext()
+            {
+                int oddNumber = currentNumber;
+                currentNumber += 2;
+                return oddNumber;
+            }
+        }
+    }
+
+    namespace PrimeNumbers
+    {
+        public class PrimeNumberGenerator
+        {
+            private List<int> primes = new List<int>() { 2 };
+
+            public int GetNext()
+            {
+                int currentNumber = primes[primes.Count - 1] + 1;
+                while (!IsPrime(currentNumber))
+                {
+                    currentNumber++;
+                }
+                primes.Add(currentNumber);
+                return currentNumber;
+            }
+
+            private bool IsPrime(int number)
+            {
+                if (number < 2)
+                    return false;
+                for (int i = 2; i * i <= number; i++)
+                {
+                    if (number % i == 0)
+                        return false;
+                }
+                return true;
+            }
+        }
+    }
+
+    namespace FibonacciNumbers
+    {
+        public class FibonacciNumberGenerator
+        {
+            private List<int> fibonacciNumbers = new List<int>() { 0, 1 };
+
+            public int GetNext()
+            {
+                int nextNumber = fibonacciNumbers[fibonacciNumbers.Count - 1] + fibonacciNumbers[fibonacciNumbers.Count - 2];
+                fibonacciNumbers.Add(nextNumber);
+                return nextNumber;
+            }
+        }
+    }
+
+    namespace Shapes
+    {
+        public class Triangle
+        {
+            private double side1;
+            private double side2;
+            private double side3;
+
+            public Triangle(double side1, double side2, double side3)
+            {
+                this.side1 = side1;
+                this.side2 = side2;
+                this.side3 = side3;
+            }
+
+            public double CalculatePerimeter()
+            {
+                return side1 + side2 + side3;
+            }
+
+            public double CalculateArea()
+            {
+                double s = (side1 + side2 + side3) / 2;
+                return Math.Sqrt(s * (s - side1) * (s - side2) * (s - side3));
+            }
+        }
+
+        public class Rectangle
+        {
+            private double length;
+            private double width;
+
+            public Rectangle(double length, double width)
+            {
+                this.length = length;
+                this.width = width;
+            }
+
+            public double CalculatePerimeter()
+            {
+                return 2 * (length + width);
+            }
+
+            public double CalculateArea()
+            {
+                return length * width;
+            }
+        }
+
+        public class Square
+        {
+            private double side;
+
+            public Square(double side)
+            {
+                this.side = side;
+            }
+
+            public double CalculatePerimeter()
+            {
+                return 4 * side;
+            }
+
+            public double CalculateArea()
+            {
+                return side * side;
+            }
+        }
+    }
+    namespace ComputerPlayer
+    {
+        public class NumberGuesser
+        {
+            private int minRange;
+            private int maxRange;
+            private int targetNumber;
+            private Random random;
+
+            public NumberGuesser(int minRange, int maxRange)
+            {
+                this.minRange = minRange;
+                this.maxRange = maxRange;
+                random = new Random();
+            }
+
+            public void SetTargetNumber()
+            {
+                targetNumber = random.Next(minRange, maxRange + 1);
+            }
+
+            public bool Guess(int number)
+            {
+                if (number == targetNumber)
+                {
+                    Console.WriteLine("Комп'ютер вгадав число!");
+                    return true;
+                }
+                else if (number < targetNumber)
+                {
+                    Console.WriteLine("Комп'ютер загадав число менше!");
+                }
+                else
+                {
+                    Console.WriteLine("Комп'ютер загадав число більше!");
+                }
+                return false;
+            }
+        }
+    }
     internal class Program
     {
         static char[,] board;
@@ -226,19 +442,152 @@ namespace C_ {
                         break;
                     case 3:
                         {
-                            Console.Write("Enter a text: ");
+                            Console.Write("Введіть текст: ");
                             string inputText = Console.ReadLine();
 
-                            string morseCode = MorseCode.TranslateToMorseCode(inputText);
-                            Console.WriteLine("Morse Code: " + morseCode);
+                            string morseCode = MorseCodeTranslator.TranslateToMorseCode(inputText);
+                            Console.WriteLine("Азбука Морзе: " + morseCode);
 
                             Console.Write("\nНатисніть будь-яку клавішу, щоб продовжити...");
                             Console.ReadKey();
                             Console.Clear();
                         }
                         break;
-                 
 
+                    case 4:
+                        {
+                            Console.WriteLine("1. Перекласти азбукою Морзе");
+                            Console.WriteLine("2. Перекласти з азбуки Морзе");
+                            Console.Write("Введіть ваш вибір (1 або 2): ");
+                            int choice = int.Parse(Console.ReadLine());
+
+                            if (choice == 1)
+                            {
+                                Console.Write("Ввудіть текст: ");
+                                string inputText = Console.ReadLine();
+
+                                string morseCode = MorseCodeTranslator.TranslateToMorseCode(inputText);
+                                Console.WriteLine("Morse Code: " + morseCode);
+                            }
+                            else if (choice == 2)
+                            {
+                                Console.Write("Введіть азбуку Морзе: ");
+                                string morseCode = Console.ReadLine();
+
+                                string translatedText = MorseCodeTranslator.TranslateFromMorseCode(morseCode);
+                                Console.WriteLine("Перекладений текст: " + translatedText);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid.");
+                            }
+
+                            Console.Write("\nНатисніть будь-яку клавішу, щоб продовжити...");
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                        break;
+                    case 5:
+                        {
+                            Console.WriteLine("Парні числа:");
+                            EvenNumbers.EvenNumberGenerator evenGenerator = new EvenNumbers.EvenNumberGenerator();
+                            for (int i = 0; i < 5; i++)
+                            {
+                                int evenNumber = evenGenerator.GetNext();
+                                Console.WriteLine(evenNumber);
+                            }
+
+                            Console.WriteLine("\nНепарні числа:");
+                            OddNumbers.OddNumberGenerator oddGenerator = new OddNumbers.OddNumberGenerator();
+                            for (int i = 0; i < 5; i++)
+                            {
+                                int oddNumber = oddGenerator.GetNext();
+                                Console.WriteLine(oddNumber);
+                            }
+
+                            Console.WriteLine("\nПрості числа:");
+                            PrimeNumbers.PrimeNumberGenerator primeGenerator = new PrimeNumbers.PrimeNumberGenerator();
+                            for (int i = 0; i < 5; i++)
+                            {
+                                int primeNumber = primeGenerator.GetNext();
+                                Console.WriteLine(primeNumber);
+                            }
+
+                            Console.WriteLine("\nЧисла Фібоначчі:");
+                            FibonacciNumbers.FibonacciNumberGenerator fibonacciGenerator = new FibonacciNumbers.FibonacciNumberGenerator();
+                            for (int i = 0; i < 5; i++)
+                            {
+                                int fibonacciNumber = fibonacciGenerator.GetNext();
+                                Console.WriteLine(fibonacciNumber);
+                            }
+
+                            Console.Write("\nНатисніть будь-яку клавішу, щоб продовжити...");
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                        break;
+                    case 6:
+                        {
+
+                            Shapes.Triangle triangle = new Shapes.Triangle(3, 4, 5);
+                            Console.WriteLine("Периметр трикутника: " + triangle.CalculatePerimeter());
+                            Console.WriteLine("Площа трикутника: " + triangle.CalculateArea());
+
+                            Shapes.Rectangle rectangle = new Shapes.Rectangle(4, 6);
+                            Console.WriteLine("\nПериметр прямокутника: " + rectangle.CalculatePerimeter());
+                            Console.WriteLine("Площа прямокутника: " + rectangle.CalculateArea());
+
+                            Shapes.Square square = new Shapes.Square(5);
+                            Console.WriteLine("\nКвадратний периметр: " + square.CalculatePerimeter());
+                            Console.WriteLine("Площа в квадраті: " + square.CalculateArea());
+                        
+
+                            Console.Write("\nНатисніть будь-яку клавішу, щоб продовжити...");
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                        break;
+                    case 7:
+                        {
+                            Console.WriteLine("Ласкаво просимо до гри «Вгадай число»!");
+                            Console.WriteLine("Придумайте число в заданому діапазоні й дайте комп’ютеру вгадати його.");
+
+                            Console.Write("Введіть мінімальне значення діапазону: ");
+                            int minRange = int.Parse(Console.ReadLine());
+
+                            Console.Write("Введіть максимальне значення діапазону: ");
+                            int maxRange = int.Parse(Console.ReadLine());
+
+                            Console.WriteLine("Чудово! Нехай гра починається.");
+
+                            ComputerPlayer.NumberGuesser numberGuesser = new ComputerPlayer.NumberGuesser(minRange, maxRange);
+                            numberGuesser.SetTargetNumber();
+
+                            bool guessedCorrectly = false;
+
+                            while (!guessedCorrectly)
+                            {
+                                Console.Write("Припущення комп'ютера: ");
+                                int guess = int.Parse(Console.ReadLine());
+
+                                guessedCorrectly = numberGuesser.Guess(guess);
+                            }
+
+                            Console.WriteLine("Дякуємо за гру!\n");
+
+
+                            Console.Write("\nНатисніть будь-яку клавішу, щоб продовжити...");
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                        break;
+                    case 8: {
+
+                            Console.Write("\nНатисніть будь-яку клавішу, щоб продовжити...");
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                        break;
                     default:
                         break;
                 }
