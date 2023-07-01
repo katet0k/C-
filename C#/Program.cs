@@ -269,48 +269,40 @@ namespace C_
             }
         }
     }
-
     namespace Shapes
     {
+        // Клас трикутника
         public class Triangle
         {
-            private double side1;
-            private double side2;
-            private double side3;
+            private double sideA;
+            private double sideB;
+            private double sideC;
 
-            public Triangle(double side1, double side2, double side3)
+            public Triangle(double a, double b, double c)
             {
-                this.side1 = side1;
-                this.side2 = side2;
-                this.side3 = side3;
-            }
-
-            public double CalculatePerimeter()
-            {
-                return side1 + side2 + side3;
+                sideA = a;
+                sideB = b;
+                sideC = c;
             }
 
             public double CalculateArea()
             {
-                double s = (side1 + side2 + side3) / 2;
-                return Math.Sqrt(s * (s - side1) * (s - side2) * (s - side3));
+                // Використовуємо формулу Герона для обчислення площі трикутника
+                double s = (sideA + sideB + sideC) / 2;
+                return Math.Sqrt(s * (s - sideA) * (s - sideB) * (s - sideC));
             }
         }
 
+        // Клас прямокутника
         public class Rectangle
         {
             private double length;
             private double width;
 
-            public Rectangle(double length, double width)
+            public Rectangle(double l, double w)
             {
-                this.length = length;
-                this.width = width;
-            }
-
-            public double CalculatePerimeter()
-            {
-                return 2 * (length + width);
+                length = l;
+                width = w;
             }
 
             public double CalculateArea()
@@ -319,18 +311,14 @@ namespace C_
             }
         }
 
+        // Клас квадрата
         public class Square
         {
             private double side;
 
-            public Square(double side)
+            public Square(double s)
             {
-                this.side = side;
-            }
-
-            public double CalculatePerimeter()
-            {
-                return 4 * side;
+                side = s;
             }
 
             public double CalculateArea()
@@ -339,7 +327,8 @@ namespace C_
             }
         }
     }
-    namespace ComputerPlayer
+
+        namespace ComputerPlayer
     {
         public class NumberGuesser
         {
@@ -379,7 +368,54 @@ namespace C_
             }
         }
     }
-    internal class Program
+    namespace TextGenerator
+    {
+        public class LoremIpsumGenerator
+        {
+            private const string Vowels = "aeiou";
+            private const string Consonants = "bcdfghjklmnpqrstvwxyz";
+            private Random random;
+
+            public LoremIpsumGenerator()
+            {
+                random = new Random();
+            }
+
+            public string GenerateText(int vowelCount, int consonantCount, int maxLength)
+            {
+                StringBuilder text = new StringBuilder();
+
+                for (int i = 0; i < vowelCount; i++)
+                {
+                    text.Append(GetRandomCharacter(Vowels));
+                }
+
+                for (int i = 0; i < consonantCount; i++)
+                {
+                    text.Append(GetRandomCharacter(Consonants));
+                }
+
+                return CapitalizeFirstLetter(text.ToString()).Substring(0, maxLength);
+            }
+
+            private char GetRandomCharacter(string characters)
+            {
+                int index = random.Next(characters.Length);
+                return characters[index];
+            }
+
+            private string CapitalizeFirstLetter(string text)
+            {
+                if (string.IsNullOrEmpty(text))
+                    return text;
+
+                char[] charArray = text.ToCharArray();
+                charArray[0] = char.ToUpper(charArray[0]);
+                return new string(charArray);
+            }
+        }
+    }
+        internal class Program
     {
         static char[,] board;
         static char currentPlayer;
@@ -528,19 +564,18 @@ namespace C_
                         break;
                     case 6:
                         {
+                            double triangleSideA = 3.0, triangleSideB = 4.0, triangleSideC = 5.0;
+                            Shapes.Triangle triangle = new Shapes.Triangle(triangleSideA, triangleSideB, triangleSideC);
+                            Console.WriteLine($"Площа трикутника: {triangle.CalculateArea()}");
 
-                            Shapes.Triangle triangle = new Shapes.Triangle(3, 4, 5);
-                            Console.WriteLine("Периметр трикутника: " + triangle.CalculatePerimeter());
-                            Console.WriteLine("Площа трикутника: " + triangle.CalculateArea());
+                            double rectangleLength = 6.0, rectangleWidth = 8.0;
+                            Shapes.Rectangle rectangle = new Shapes.Rectangle(rectangleLength, rectangleWidth);
+                            Console.WriteLine($"Площа прямокутника: {rectangle.CalculateArea()}");
 
-                            Shapes.Rectangle rectangle = new Shapes.Rectangle(4, 6);
-                            Console.WriteLine("\nПериметр прямокутника: " + rectangle.CalculatePerimeter());
-                            Console.WriteLine("Площа прямокутника: " + rectangle.CalculateArea());
+                            double squareSide = 5.0;
+                            Shapes.Square square = new Shapes.Square(squareSide);
+                            Console.WriteLine($"Площа квадрата: {square.CalculateArea()}");
 
-                            Shapes.Square square = new Shapes.Square(5);
-                            Console.WriteLine("\nКвадратний периметр: " + square.CalculatePerimeter());
-                            Console.WriteLine("Площа в квадраті: " + square.CalculateArea());
-                        
 
                             Console.Write("\nНатисніть будь-яку клавішу, щоб продовжити...");
                             Console.ReadKey();
@@ -582,7 +617,20 @@ namespace C_
                         }
                         break;
                     case 8: {
+                            Console.WriteLine("Введіть кількість голосних: ");
+                            int vowelCount = int.Parse(Console.ReadLine());
 
+                            Console.WriteLine("Введіть кількість приголосних: ");
+                            int consonantCount = int.Parse(Console.ReadLine());
+
+                            Console.WriteLine("Введіть максимальну довжину слова: ");
+                            int maxLength = int.Parse(Console.ReadLine());
+
+                            TextGenerator.LoremIpsumGenerator generator = new TextGenerator.LoremIpsumGenerator();
+                            string generatedText = generator.GenerateText(vowelCount, consonantCount, maxLength);
+
+                            Console.WriteLine("Згенерований псевдотекст: ");
+                            Console.WriteLine(generatedText);
                             Console.Write("\nНатисніть будь-яку клавішу, щоб продовжити...");
                             Console.ReadKey();
                             Console.Clear();
