@@ -441,12 +441,6 @@ namespace C_
                 Console.WriteLine(" |       6 -  case 6       |");
                 Console.WriteLine(" |       7 -  case 7       |");
                 Console.WriteLine(" |       8 -  case 8       |");
-                Console.WriteLine(" |       9 -  case 9       |");
-                Console.WriteLine(" |      10 -  case 10      |");
-                Console.WriteLine(" |      11 -  case 11      |");
-                Console.WriteLine(" |      12 -  case 12      |");
-                Console.WriteLine(" |      13 -  case 13      |");
-                Console.WriteLine(" |       0 -   exit        |");
                 Console.WriteLine("#===========================#");
                 Console.Write("Виберіть пункт меню -> ");
                 switch_on = Convert.ToInt32(Console.ReadLine());
