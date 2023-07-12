@@ -26,7 +26,7 @@ namespace C_
                 Console.WriteLine(" |       7 -  case 7       |");
                 Console.WriteLine(" |       8 -  case 8       |");
                 Console.WriteLine(" |       9 -  case 9       |");
-                Console.WriteLine(" |      10 -  case 10       |");
+                Console.WriteLine(" |      10 -  case 10      |");
                 Console.WriteLine("#===========================#");
                 Console.Write("Виберіть пункт меню -> ");
                 switch_on = Convert.ToInt32(Console.ReadLine());
