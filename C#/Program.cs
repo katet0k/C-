@@ -35,6 +35,121 @@ namespace C_
                 {
                     case 1:
                         {
+                            Oceanarium oceanarium = new Oceanarium();
+                            oceanarium.AddCreature("Дельфін", "Делфініди");
+                            oceanarium.AddCreature("Акула", "Хрящові риби");
+                            oceanarium.AddCreature("Кит", "Китові");
+                            oceanarium.AddCreature("Морський коник", "Коникові");
+
+                            foreach (MarineCreature creature in oceanarium)
+                            {
+                                Console.WriteLine("Назва: " + creature.Name);
+                                Console.WriteLine("Вид: " + creature.Species);
+                                Console.WriteLine();
+                            }
+
+                            Console.Write("\nНатисніть будь-яку клавішу, щоб продовжити...");
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                        break;
+                    case 2:
+                        {
+                            FootballTeam team = new FootballTeam();
+                            team.AddPlayer("Іван", 7);
+                            team.AddPlayer("Роман", 10);
+                            team.AddPlayer("Григорій", 4);
+                            team.AddPlayer("Леонід", 9);
+
+                            foreach (FootballPlayer player in team)
+                            {
+                                Console.WriteLine("Гравець: " + player.Name);
+                                Console.WriteLine("Номер: " + player.Number);
+                                Console.WriteLine();
+                            }
+
+                            Console.Write("\nНатисніть будь-яку клавішу, щоб продовжити...");
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                        break;
+                    case 3:
+                        {
+                            Cafe cafe = new Cafe();
+                            cafe.AddWorker("Джон", "Бариста");
+                            cafe.AddWorker("Майкл", "Офіціант");
+                            cafe.AddWorker("Девід", "Шеф-кухар");
+                            cafe.AddWorker("Емілі", "Бармен");
+
+                            foreach (CafeWorker worker in cafe)
+                            {
+                                Console.WriteLine("Працівник: " + worker.Name);
+                                Console.WriteLine("Посада: " + worker.Position);
+                                Console.WriteLine();
+                            }
+
+                            Console.Write("\nНатисніть будь-яку клавішу, щоб продовжити...");
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                        break;
+                    case 4:
+                        {
+                            Alphabet alphabet = new Alphabet();
+
+                            foreach (char letter in alphabet)
+                            {
+                                Console.WriteLine(letter);
+                            }
+
+                            Console.Write("\nНатисніть будь-яку клавішу, щоб продовжити...");
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                        break;
+
+                    case 5:
+                        {
+                            House house = new House();
+
+                            house.AddApartment(101);
+                            house.AddResidentToApartment(101, "Іван");
+                            house.AddResidentToApartment(101, "Надія");
+
+                            house.AddApartment(202);
+                            house.AddResidentToApartment(202, "Микола");
+
+                            foreach (Apartment apartment in house)
+                            {
+                                Console.WriteLine("Квартира №" + apartment.Number);
+                                Console.WriteLine("Мешканці:");
+                                foreach (string resident in apartment.Residents)
+                                {
+                                    Console.WriteLine(resident);
+                                }
+                                Console.WriteLine();
+                            }
+
+                            Console.Write("\nНатисніть будь-яку клавішу, щоб продовжити...");
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                        break;
+
+                    case 6:
+                        {
+                            Garage garage = new Garage();
+                            garage.AddCar("Toyota", "Camry");
+                            garage.AddCar("Honda", "Civic");
+                            garage.AddCar("Ford", "Mustang");
+
+                            foreach (Car car in garage)
+                            {
+                                Console.WriteLine("Марка: " + car.Make);
+                                Console.WriteLine("Модель: " + car.Model);
+                                Console.WriteLine();
+                            }
+
                             Console.Write("\nНатисніть будь-яку клавішу, щоб продовжити...");
                             Console.ReadKey();
                             Console.Clear();
