@@ -35,14 +35,100 @@ namespace C_
                 {
                     case 1:
                         {
+                            List<int> numbers = GenerateNumbers(100);
+
+                            List<int> primeNumbers = new List<int>();
+                            List<int> fibonacciNumbers = new List<int>();
+
+                            foreach (int number in numbers)
+                            {
+                                if (IsPrime(number))
+                                    primeNumbers.Add(number);
+
+                                if (IsFibonacci(number))
+                                    fibonacciNumbers.Add(number);
+                            }
+
+                            SaveNumbersToFile(primeNumbers, "prime_numbers.txt");
+                            SaveNumbersToFile(fibonacciNumbers, "fibonacci_numbers.txt");
+
+                            Console.WriteLine("Статистика:");
+                            Console.WriteLine($"Загальна кількість згенерованих чисел: {numbers.Count}");
+                            Console.WriteLine($"Кількість простих чисел: {primeNumbers.Count}");
+                            Console.WriteLine($"Кількість чисел Фібоначчі: {fibonacciNumbers.Count}");
+
+
                             Console.Write("\nНатисніть будь-яку клавішу, щоб продовжити...");
                             Console.ReadKey();
                             Console.Clear();
                         }
                         break;
+
+                        static List<int> GenerateNumbers(int count)
+                        {
+                            Random random = new Random();
+                            List<int> numbers = new List<int>();
+
+                            for (int i = 0; i < count; i++)
+                            {
+                                numbers.Add(random.Next(1, 1000)); 
+                            }
+
+                            return numbers;
+                        }
+
+                        static bool IsPrime(int number)
+                        {
+                            if (number <= 1)
+                                return false;
+
+                            for (int i = 2; i <= Math.Sqrt(number); i++)
+                            {
+                                if (number % i == 0)
+                                    return false;
+                            }
+
+                            return true;
+                        }
+
+                        static bool IsFibonacci(int number)
+                        {
+                            double test1 = 5 * Math.Pow(number, 2) + 4;
+                            double test2 = 5 * Math.Pow(number, 2) - 4;
+
+                            return IsPerfectSquare(test1) || IsPerfectSquare(test2);
+                        }
+
+                        static bool IsPerfectSquare(double num)
+                        {
+                            int sqrt = (int)Math.Sqrt(num);
+                            return (sqrt * sqrt == num);
+                        }
+
+                        static void SaveNumbersToFile(List<int> numbers, string fileName)
+                        {
+                            using (StreamWriter writer = new StreamWriter(fileName))
+                            {
+                                foreach (int number in numbers)
+                                {
+                                    writer.WriteLine(number);
+                                }
+                            }
+                        }
+
+                    case 2:
+                        {
+
+                            Console.Write("\nНатисніть будь-яку клавішу, щоб продовжити...");
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
+                        break;
+
                     default:
                         break;
                 }
+                
             } while (switch_on != 0);
         }
     }
