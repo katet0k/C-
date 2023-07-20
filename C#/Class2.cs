@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace C_
 {
-    // Інтерфейс IMath з методами Max(), Min(), Avg() та Search()
     public interface IMath
     {
         int Max();
@@ -15,7 +14,6 @@ namespace C_
         bool Search(int valueToSearch);
     }
 
-    // Розширення класу IntArray, що імплементує IMath
     public class IntArray : IOutput, IMath
     {
         private int[] elements;
