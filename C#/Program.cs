@@ -3,24 +3,8 @@ using System.Text;
 
 namespace C_
 {
-    class Employee
-    {
-        public string FullName { get; set; }
-        public string Position { get; set; }
-        public decimal Salary { get; set; }
-        public string Email { get; set; }
-    }
-    class Book
-    {
-        public string Title { get; set; }
-        public string Author { get; set; }
-        public string Genre { get; set; }
-        public int Year { get; set; }
-    }
-    class Patient
-    {
-        public string Name { get; set; }
-    }
+    
+
     internal class Program
     {
         static List<Employee> employees = new List<Employee>();
@@ -46,8 +30,6 @@ namespace C_
                 Console.WriteLine(" |       4 -  case 4       |");
                 Console.WriteLine(" |       5 -  case 5       |");
                 Console.WriteLine(" |       6 -  case 6       |");
-                Console.WriteLine(" |       7 -  case 7       |");
-                Console.WriteLine(" |       8 -  case 8       |");
                 Console.WriteLine("#===========================#");
                 Console.Write("Виберіть пункт меню -> ");
                 switch_on = Convert.ToInt32(Console.ReadLine());
@@ -282,17 +264,17 @@ namespace C_
                             do
                             {
                                 Console.WriteLine("Облік книг");
-                                Console.WriteLine("1. Додати книгу");
-                                Console.WriteLine("2. Видалити книгу");
-                                Console.WriteLine("3. Змінити інформацію про книгу");
-                                Console.WriteLine("4. Пошук книг за параметрами");
-                                Console.WriteLine("5. Вставити книгу у початок списку");
-                                Console.WriteLine("6. Вставити книгу у кінець списку");
-                                Console.WriteLine("7. Вставити книгу у певну позицію");
-                                Console.WriteLine("8. Видалити книгу з початку списку");
-                                Console.WriteLine("9. Видалити книгу з кінця списку");
+                                Console.WriteLine("1.  Додати книгу");
+                                Console.WriteLine("2.  Видалити книгу");
+                                Console.WriteLine("3.  Змінити інформацію про книгу");
+                                Console.WriteLine("4.  Пошук книг за параметрами");
+                                Console.WriteLine("5.  Вставити книгу у початок списку");
+                                Console.WriteLine("6.  Вставити книгу у кінець списку");
+                                Console.WriteLine("7.  Вставити книгу у певну позицію");
+                                Console.WriteLine("8.  Видалити книгу з початку списку");
+                                Console.WriteLine("9.  Видалити книгу з кінця списку");
                                 Console.WriteLine("10. Видалити книгу з певної позиції");
-                                Console.WriteLine("11. Вийти з програми");
+                                Console.WriteLine("0.  Вийти з програми");
 
                                 Console.Write("Виберіть опцію: ");
                                 option = Console.ReadLine();
@@ -627,17 +609,17 @@ namespace C_
 
                     case 3:
                         {
-                            bool exit = false;
+                            string option;
 
-                            while (!exit)
+                            do
                             {
                                 Console.WriteLine("Додаток-емуляція черги в поліклініку");
                                 Console.WriteLine("1. Додати пацієнта до черги");
                                 Console.WriteLine("2. Прийняти пацієнта до лікаря");
-                                Console.WriteLine("3. Вийти з програми");
+                                Console.WriteLine("0. Вийти з програми");
 
                                 Console.Write("Виберіть опцію: ");
-                                string option = Console.ReadLine();
+                                option = Console.ReadLine();
                                 Console.WriteLine();
 
                                 switch (option)
@@ -648,8 +630,7 @@ namespace C_
                                     case "2":
                                         ProcessPatient();
                                         break;
-                                    case "3":
-                                        exit = true;
+                                    case "0":
                                         break;
                                     default:
                                         Console.WriteLine("Недійсна опція. Спробуйте ще раз.");
@@ -657,7 +638,7 @@ namespace C_
                                 }
 
                                 Console.WriteLine();
-                            }
+                            }while (option != "0");
                         }
 
                         static void AddPatientToQueue()
@@ -691,6 +672,68 @@ namespace C_
                 
                         break;
 
+
+                    case 4:
+                        {
+                            EmployeeManagementApp app = new EmployeeManagementApp();
+
+                            app.AddEmployee("user1", "pass123");
+                            app.AddEmployee("user2", "password456");
+                            app.AddEmployee("user3", "securePass");
+
+                            Console.WriteLine("Пароль співробітника з логіном 'user1': " + app.GetEmployeePassword("user1"));
+                            Console.WriteLine("Пароль співробітника з логіном 'user2': " + app.GetEmployeePassword("user2"));
+                            Console.WriteLine("Пароль співробітника з логіном 'user4': " + app.GetEmployeePassword("user4"));
+
+                            app.UpdateEmployeeCredentials("user2", "newPassword789");
+                            app.RemoveEmployee("user3");
+
+                            Console.WriteLine("Пароль співробітника з логіном 'user2': " + app.GetEmployeePassword("user2"));
+
+                        }
+                        break;
+
+                    case 5:
+                        {
+                            EnglishFrenchDictionary dictionary = new EnglishFrenchDictionary();
+
+                            dictionary.AddWord("hello", new List<string> { "bonjour" });
+                            dictionary.AddWord("apple", new List<string> { "pomme" });
+                            dictionary.AddWord("book", new List<string> { "livre" });
+
+                            dictionary.SearchTranslation("hello");
+                            dictionary.SearchTranslation("apple");
+                            dictionary.SearchTranslation("car");
+
+                            dictionary.UpdateWord("apple", "apricot");
+                            dictionary.UpdateTranslation("book", "livre", "carnet");
+
+                            dictionary.RemoveTranslation("hello", "bonjour");
+                            dictionary.RemoveWord("car");
+
+                            dictionary.SearchTranslation("hello");
+                            dictionary.SearchTranslation("apricot");
+                            dictionary.SearchTranslation("book");
+                        }
+                        break;
+
+                    case 6:
+                        {
+                            Cafe cafe = new Cafe();
+
+                            cafe.AddToQueue("Віктор");
+                            cafe.AddToQueue("Олена");
+                            cafe.ReserveTable("Марія", "Столик 1");
+                            cafe.AddToQueue("Іван");
+                            cafe.FreeTable();
+                            cafe.ReserveTable("Юлія", "Столик 2");
+                            cafe.AddToQueue("Петро");
+                            cafe.AddToQueue("Анна");
+                            cafe.FreeTable();
+                            cafe.FreeTable();
+                            cafe.FreeTable(); 
+                        }
+                        break;
                     default:
                         break;
                 }
